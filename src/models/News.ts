@@ -8,6 +8,8 @@ builder.prismaObject("News", {
     description: t.exposeString("description"),
     imageUrl: t.exposeString("imageUrl"),
     subtitle: t.exposeString("subtitle"),
+    createdAt: t.expose("createdAt", { type: "Date" }),
+    updatedAt: t.expose("updatedAt", { type: "Date" }),
   }),
 });
 
