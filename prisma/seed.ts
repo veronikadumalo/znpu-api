@@ -364,6 +364,20 @@ async function main() {
   await prisma.menuCategory.create({
     data: { title: "PLACÓWKI OŚWIATKOWE" },
   });
+  await prisma.pageInfo.create({
+    data: {
+      uaAddress: `Укрпошта <br />
+      82100 Дрогобич <br />
+      вул. Данила Галицького, 21 а/с № 17`,
+      plAddress: "82100 Drohobycz ul. Truskawiecka 9 obwód lwowski",
+      phoneNuber: "03244 50177",
+      email: "adam-ch@mail.lviv.ua",
+      additionalEmail: "znpu.ua@gmail.com",
+      facebookLink: "https://www.facebook.com/CentrumDrohobycz",
+      uaPageTitle: "Cпілка вчителів - полоністів України",
+      plPageTitle: "Zjednoczenie nauczycieli polskich w Ukrainie",
+    },
+  });
 }
 
 main()

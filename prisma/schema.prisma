@@ -71,6 +71,18 @@ model News {
   updatedAt DateTime @updatedAt
 }
 
+model PageInfo {
+  id String @id @default(uuid())
+  uaAddress String
+  plAddress String
+  phoneNuber String
+  email String
+  additionalEmail String
+  facebookLink String
+  uaPageTitle String
+  plPageTitle String 
+}
+
 
 
 
