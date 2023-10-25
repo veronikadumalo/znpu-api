@@ -4,27 +4,75 @@
 generator client {
   provider = "prisma-client-js"
 }
-generator pothos {
-  provider = "prisma-pothos-types"
-}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  name String 
-  createdAt DateTime @default(now())
-  messages Message[]
+generator pothos {
+  provider = "prisma-pothos-types"
 }
 
-model Message{
-  id Int @id @default(autoincrement())
-  body String 
+
+model Deparments {
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
-  userId Int 
-  user User @relation(fields: [userId], references: [id])
+  updatedAt DateTime @updatedAt
+  title String
+  persons Person[]
 }
+
+model Person {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  email String
+  deparmentId String 
+  deparment Deparments @relation(fields: [deparmentId], references: [id])
+}
+
+model MenuCategory {
+  id String @id @default(uuid())
+  title String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subcategories MenuSubcategory[]
+}
+
+model MenuSubcategory {
+  id String @id @default(uuid())
+  title String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  categoryId String
+  category MenuCategory @relation(fields: [categoryId], references: [id])
+  files File[]
+}
+
+model File {
+  id String @id @default(uuid())
+  title String
+  url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subcategoryId String
+  subcategory MenuSubcategory @relation(fields: [subcategoryId], references: [id])
+}
+
+model News {
+  id String @id @default(uuid())
+  title String
+  subtitle String
+  description String
+  imageUrl String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+
+
 
