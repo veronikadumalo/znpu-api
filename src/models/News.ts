@@ -17,7 +17,14 @@ builder.queryField("news", (t) =>
   t.prismaField({
     type: ["News"],
     resolve: (query, _parent, _args, _ctx, _info) =>
-      prisma.news.findMany({ ...query }),
+      prisma.news.findMany({
+        ...query,
+        orderBy: [
+          {
+            updatedAt: "desc",
+          },
+        ],
+      }),
   })
 );
 
