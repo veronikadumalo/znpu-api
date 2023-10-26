@@ -83,6 +83,18 @@ model PageInfo {
   plPageTitle String 
 }
 
+model HomePageContent{
+  id String @id @default(uuid())
+  type String @unique
+  homeTitle String
+  pageTitle String
+  shortDescription String
+  longDescription String
+  imageUrl String
+}
+
+
+
 
 
 
