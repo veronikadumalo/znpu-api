@@ -58,3 +58,39 @@ builder.mutationField("updateHomePageInfo", (t) =>
     },
   })
 );
+
+builder.mutationField("createHomePageInfo", (t) =>
+  t.prismaField({
+    type: "HomePageContent",
+    args: {
+      type: t.arg.string({ required: true }),
+      homeTitle: t.arg.string({ required: true }),
+      pageTitle: t.arg.string({ required: true }),
+      shortDescription: t.arg.string({ required: true }),
+      longDescription: t.arg.string({ required: true }),
+      imageUrl: t.arg.string({ required: true }),
+    },
+    resolve: async (query, _parent, args, ctx) => {
+      const {
+        type,
+        homeTitle,
+        pageTitle,
+        shortDescription,
+        longDescription,
+        imageUrl,
+      } = args;
+
+      return prisma.homePageContent.create({
+        ...query,
+        data: {
+          homeTitle,
+          pageTitle,
+          shortDescription,
+          longDescription,
+          imageUrl,
+          type,
+        },
+      });
+    },
+  })
+);
