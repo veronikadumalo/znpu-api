@@ -29,6 +29,7 @@ model Person {
   updatedAt DateTime @updatedAt
   name String
   email String
+  avatar String?
   deparmentId String 
   deparment Deparments @relation(fields: [deparmentId], references: [id])
 }
@@ -91,6 +92,17 @@ model HomePageContent{
   shortDescription String
   longDescription String
   imageUrl String
+}
+
+model Event{
+  id String @id @default(uuid())
+  type String @unique
+  title String
+  shortDescription String
+  longDescription String
+  images String[]
+  createdAt DateTime @default(now())
+  customerDate String
 }
 
 

@@ -1,3 +1,4 @@
+import { type } from "node:os";
 import { builder } from "../builder";
 import { prisma } from "../db";
 
@@ -5,8 +6,7 @@ builder.prismaObject("Person", {
   fields: (t) => ({
     id: t.exposeID("id"),
     name: t.exposeString("name"),
-    email: t.exposeString("email"),
-    // deparmentId: t.exposeString,
+    email: t.exposeString("email"), // deparmentId: t.exposeString,
   }),
 });
 

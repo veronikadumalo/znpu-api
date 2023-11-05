@@ -5,6 +5,7 @@ const Persona = builder.inputType("Persona", {
   fields: (t) => ({
     name: t.string({ required: true }),
     email: t.string({ required: true }),
+    avatar: t.string({ required: false }),
   }),
 });
 
@@ -41,7 +42,11 @@ builder.mutationField("createDepartment", (t) =>
         ...query,
         data: {
           title,
-          persons: { create: [{ name: input.name, email: input.email }] },
+          persons: {
+            create: [
+              { name: input.name, email: input.email, avatar: input.avatar },
+            ],
+          },
         },
       });
     },
