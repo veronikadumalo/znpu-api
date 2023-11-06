@@ -1,4 +1,3 @@
-import { type } from "node:os";
 import { builder } from "../builder";
 import { prisma } from "../db";
 
@@ -7,6 +6,10 @@ builder.prismaObject("Person", {
     id: t.exposeID("id"),
     name: t.exposeString("name"),
     email: t.exposeString("email"), // deparmentId: t.exposeString,
+    avatar: t.expose("avatar", {
+      type: "String",
+      nullable: true,
+    }),
   }),
 });
 
@@ -44,9 +47,10 @@ builder.mutationField("createPerson", (t) =>
       name: t.arg.string({ required: true }),
       email: t.arg.string({ required: true }),
       deparmentId: t.arg.string({ required: true }),
+      avatar: t.arg.string({ required: false }),
     },
     resolve: async (query, _parent, args, ctx) => {
-      const { name, email, deparmentId } = args;
+      const { name, email, deparmentId, avatar } = args;
 
       return prisma.person.create({
         ...query,
@@ -54,6 +58,7 @@ builder.mutationField("createPerson", (t) =>
           name,
           email,
           deparmentId,
+          avatar,
         },
       });
     },
@@ -67,9 +72,10 @@ builder.mutationField("updatePerson", (t) =>
       name: t.arg.string({ required: true }),
       email: t.arg.string({ required: true }),
       id: t.arg.string({ required: true }),
+      avatar: t.arg.string({ required: false }),
     },
     resolve: async (query, _parent, args, ctx) => {
-      const { name, email, id } = args;
+      const { name, email, id, avatar } = args;
 
       return prisma.person.update({
         ...query,
@@ -79,6 +85,7 @@ builder.mutationField("updatePerson", (t) =>
         data: {
           name,
           email,
+          avatar,
         },
       });
     },
