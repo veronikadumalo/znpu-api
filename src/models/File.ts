@@ -10,7 +10,7 @@ builder.prismaObject("File", {
   }),
 });
 
-builder.queryField("files", (t) =>
+builder.queryField("filesBySubcategory", (t) =>
   t.prismaField({
     type: ["File"],
     args: {
@@ -22,7 +22,7 @@ builder.queryField("files", (t) =>
     },
   })
 );
-builder.queryField("filesBySubcategory", (t) =>
+builder.queryField("files", (t) =>
   t.prismaField({
     type: ["File"],
     resolve: (query, _parent, _args, _ctx, _info) =>
