@@ -13,6 +13,18 @@ builder.prismaObject("File", {
 builder.queryField("files", (t) =>
   t.prismaField({
     type: ["File"],
+    args: {
+      subcategoryId: t.arg.string({ required: true }),
+    },
+    resolve: (query, _parent, _args, _ctx, _info) => {
+      const { subcategoryId } = _args;
+      return prisma.file.findMany({ ...query, where: { subcategoryId } });
+    },
+  })
+);
+builder.queryField("filesBySubcategory", (t) =>
+  t.prismaField({
+    type: ["File"],
     resolve: (query, _parent, _args, _ctx, _info) =>
       prisma.file.findMany({ ...query }),
   })
