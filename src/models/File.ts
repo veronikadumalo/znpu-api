@@ -22,6 +22,25 @@ builder.queryField("filesBySubcategory", (t) =>
     },
   })
 );
+builder.queryField("filesBySubcategoryName", (t) =>
+  t.prismaField({
+    type: ["File"],
+    args: {
+      subcategoryName: t.arg.string({ required: true }),
+    },
+    resolve: (query, _parent, _args, _ctx, _info) => {
+      const { subcategoryName } = _args;
+      return prisma.file.findMany({
+        ...query,
+        where: {
+          subcategory: {
+            title: subcategoryName,
+          },
+        },
+      });
+    },
+  })
+);
 builder.queryField("files", (t) =>
   t.prismaField({
     type: ["File"],
