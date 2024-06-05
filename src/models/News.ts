@@ -86,7 +86,10 @@ builder.mutationField("updateNews", (t) =>
       imageUrl: t.arg.string({ required: true }),
       id: t.arg.string({ required: true }),
       subtitle: t.arg.string({ required: true }),
-      updatedAt: t.arg.string({ required: true }),
+      updatedAt: t.arg({
+        type: "Date",
+        required: true,
+      }),
     },
     resolve: async (query, _parent, args, ctx) => {
       const { title, description, imageUrl, id, subtitle, updatedAt } = args;
