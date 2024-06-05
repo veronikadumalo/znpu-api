@@ -36,9 +36,10 @@ builder.mutationField("createNews", (t) =>
       description: t.arg.string({ required: true }),
       imageUrl: t.arg.string({ required: true }),
       subtitle: t.arg.string({ required: true }),
+      updatedAt: t.arg.string({ required: true }),
     },
     resolve: async (query, _parent, args, ctx) => {
-      const { title, description, imageUrl, subtitle } = args;
+      const { title, description, imageUrl, subtitle, updatedAt } = args;
 
       return prisma.news.create({
         ...query,
@@ -47,6 +48,7 @@ builder.mutationField("createNews", (t) =>
           description,
           imageUrl,
           subtitle,
+          updatedAt,
         },
       });
     },
@@ -81,9 +83,10 @@ builder.mutationField("updateNews", (t) =>
       imageUrl: t.arg.string({ required: true }),
       id: t.arg.string({ required: true }),
       subtitle: t.arg.string({ required: true }),
+      updatedAt: t.arg.string({ required: true }),
     },
     resolve: async (query, _parent, args, ctx) => {
-      const { title, description, imageUrl, id, subtitle } = args;
+      const { title, description, imageUrl, id, subtitle, updatedAt } = args;
 
       return prisma.news.update({
         ...query,
@@ -93,6 +96,7 @@ builder.mutationField("updateNews", (t) =>
           description,
           imageUrl,
           subtitle,
+          updatedAt,
         },
       });
     },
