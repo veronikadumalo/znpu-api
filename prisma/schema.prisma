@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -16,7 +16,7 @@ generator pothos {
 
 
 model Deparments {
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title String
@@ -24,18 +24,18 @@ model Deparments {
 }
 
 model Person {
-  id String @id @default(uuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name String
   email String
   avatar String?
-  deparmentId String 
+  deparmentId String @db.ObjectId 
   deparment Deparments @relation(fields: [deparmentId], references: [id])
 }
 
 model MenuCategory {
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   title String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,27 +43,27 @@ model MenuCategory {
 }
 
 model MenuSubcategory {
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   title String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  categoryId String
+  categoryId String @db.ObjectId 
   category MenuCategory @relation(fields: [categoryId], references: [id])
   files File[]
 }
 
 model File {
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   title String
   url String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  subcategoryId String
+  subcategoryId String @db.ObjectId 
   subcategory MenuSubcategory @relation(fields: [subcategoryId], references: [id])
 }
 
 model News {
-  id String @id @default(uuid())
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
   title String
   subtitle String
   description String
@@ -73,7 +73,7 @@ model News {
 }
 
 model PageInfo {
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   uaAddress String
   plAddress String
   phoneNuber String
@@ -85,7 +85,7 @@ model PageInfo {
 }
 
 model HomePageContent{
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   type String @unique
   homeTitle String
   pageTitle String
@@ -95,7 +95,7 @@ model HomePageContent{
 }
 
 model Event{
-  id String @id @default(uuid())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   type String 
   title String
   shortDescription String

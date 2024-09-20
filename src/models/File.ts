@@ -10,6 +10,24 @@ builder.prismaObject("File", {
   }),
 });
 
+builder.queryField("fileById", (t) =>
+  t.prismaField({
+    type: ["File"],
+    args: {
+      id: t.arg.string({ required: true }),
+    },
+    resolve: (query, _parent, _args, _ctx, _info) => {
+      const { id } = _args;
+      return prisma.file.findMany({
+        ...query,
+        where: {
+          id: id,
+        },
+      });
+    },
+  })
+);
+
 builder.queryField("filesBySubcategory", (t) =>
   t.prismaField({
     type: ["File"],
@@ -18,7 +36,14 @@ builder.queryField("filesBySubcategory", (t) =>
     },
     resolve: (query, _parent, _args, _ctx, _info) => {
       const { subcategoryId } = _args;
-      return prisma.file.findMany({ ...query, where: { subcategoryId } });
+      return prisma.file.findMany({
+        ...query,
+        where: {
+          subcategory: {
+            id: subcategoryId,
+          },
+        },
+      });
     },
   })
 );
@@ -97,11 +122,10 @@ builder.mutationField("updateFile", (t) =>
     args: {
       title: t.arg.string({ required: true }),
       url: t.arg.string({ required: true }),
-      subcategoryId: t.arg.string({ required: true }),
       id: t.arg.string({ required: true }),
     },
     resolve: async (query, _parent, args, ctx) => {
-      const { id, title, url, subcategoryId } = args;
+      const { id, title, url } = args;
 
       return prisma.file.update({
         ...query,
@@ -111,7 +135,6 @@ builder.mutationField("updateFile", (t) =>
         data: {
           title,
           url,
-          subcategoryId,
         },
       });
     },
